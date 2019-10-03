@@ -9,13 +9,23 @@ export default class PortfolioContainer extends Component {
     this.state = {
       pageTitle: "Welcome to my portfolio",
       data: [
-        { title: "Red" },
-        { title: "Orange" },
-        { title: "Yellow" },
-        { title: "Green" }
+        { title: "Strawberry", category: "Fruit" },
+        { title: "Carrot", category: "Vegetable" },
+        { title: "Broccoli", category: "Vegetable" },
+        { title: "Apple", category: "Fruit" }
       ]
     };
+
+    // this.YOURFUNCTIONHERE = this.YOURFUNCTIONHERE.bind(this); // THIS IS ONLY NECESSARY IF YOU DONT USE ARROW FUNCTIONS****
   }
+
+  handleFilter = filter => {
+    this.setState({
+      data: this.state.data.filter(item => {
+        return item.category === filter;
+      })
+    });
+  };
 
   portfolioItems() {
     return this.state.data.map(item => {
@@ -27,6 +37,11 @@ export default class PortfolioContainer extends Component {
     return (
       <div>
         <h2>{this.state.pageTitle}</h2>
+
+        <button onClick={() => this.handleFilter("Vegetable")}>
+          Vegetable
+        </button>
+        <button onClick={() => this.handleFilter("Fruit")}>Fruit</button>
 
         {this.portfolioItems()}
       </div>

@@ -10,10 +10,10 @@ export default class PortfolioContainer extends Component {
       pageTitle: "Welcome to my portfolio",
       isLoading: false,
       data: [
-        { title: "Strawberry", category: "Fruit" },
-        { title: "Carrot", category: "Vegetable" },
-        { title: "Broccoli", category: "Vegetable" },
-        { title: "Apple", category: "Fruit" }
+        { title: "Strawberry", category: "Fruit", slug: "strawberry" },
+        { title: "Carrot", category: "Vegetable", slug: "carrot" },
+        { title: "Skittles", category: "Candy", slug: "skittles" },
+        { title: "Apple", category: "Fruit", slug: "apple" }
       ]
     };
 
@@ -30,7 +30,9 @@ export default class PortfolioContainer extends Component {
 
   portfolioItems() {
     return this.state.data.map(item => {
-      return <PortfolioItem title={item.title} url={"google.com"} />;
+      return (
+        <PortfolioItem title={item.title} url={"google.com"} slug={item.slug} />
+      );
     });
   }
 
@@ -46,6 +48,7 @@ export default class PortfolioContainer extends Component {
           Vegetable
         </button>
         <button onClick={() => this.handleFilter("Fruit")}>Fruit</button>
+        <button onClick={() => this.handleFilter("Candy")}>Candy</button>
 
         {this.portfolioItems()}
       </div>

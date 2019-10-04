@@ -27,6 +27,11 @@ export default class App extends Component {
               <Route path="/blog" component={Blog} />
               <Route path="/portfolio/:slug" component={PortfolioDetail} />
               <Route component={NoMatch} />
+              <Route
+                exact
+                path="/portfolio/:slug"
+                component={PortfolioDetail}
+              />
             </Switch>
           </div>
         </Router>

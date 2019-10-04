@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 import PortfolioItem from "./portfolio-item";
 
@@ -28,6 +29,17 @@ export default class PortfolioContainer extends Component {
     });
   };
 
+  getPortfolioItems = () => {
+    axios
+      .get("https://stephenhorton.devcamp.space/portfolio/portfolio_items")
+      .then(function(response) {
+        console.log("response data", response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   portfolioItems() {
     return this.state.data.map(item => {
       return (
@@ -40,6 +52,7 @@ export default class PortfolioContainer extends Component {
     if (this.state.isLoading) {
       return <div>Loading...</div>;
     }
+    this.getPortfolioItems();
     return (
       <div>
         <h2>{this.state.pageTitle}</h2>

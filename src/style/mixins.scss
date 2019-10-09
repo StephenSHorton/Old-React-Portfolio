@@ -1,35 +1,19 @@
-.nav-wrapper {
-  display: flex;
-  justify-content: space-between;
-  padding: 30px;
+@mixin base-btn {
+  cursor: pointer;
+  height: 42px;
+  font-size: 1em;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: all 0.5s ease-in-out;
+  background-color: $teal;
+  color: white;
 
-  .left-side {
-    display: flex;
+  &:active,
+  &:focus {
+    outline: none;
   }
 
-  .nav-link-wrapper {
-    height: 22px;
-    border-bottom: 1px solid transparent;
-    transition: 0.5s ease-in-out;
-    margin-right: 20px;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-
-    a {
-      color: $grey;
-      text-decoration: none;
-      &:hover {
-        color: black;
-      }
-    }
-
-    &:hover {
-      border-bottom: 1px solid black;
-    }
-
-    .nav-link-active {
-      border-bottom: 1px solid black;
-      color: black;
-    }
+  &:hover {
+    background-color: $dark-teal;
   }
 }

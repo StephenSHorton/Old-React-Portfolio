@@ -13,18 +13,18 @@ export default class PortfolioContainer extends Component {
       data: []
     };
 
-    // this.YOURFUNCTIONHERE = this.YOURFUNCTIONHERE.bind(this); // THIS IS ONLY NECESSARY IF YOU DONT USE ARROW FUNCTIONS****
+    this.handleFilter = this.handleFilter.bind(this);
   }
 
-  handleFilter = filter => {
+  handleFilter(filter) {
     this.setState({
       data: this.state.data.filter(item => {
         return item.category === filter;
       })
     });
-  };
+  }
 
-  getPortfolioItems = () => {
+  getPortfolioItems() {
     axios
       .get("https://stephenhorton.devcamp.space/portfolio/portfolio_items")
       .then(response => {
@@ -32,10 +32,10 @@ export default class PortfolioContainer extends Component {
           data: response.data.portfolio_items
         });
       })
-      .catch(function(error) {
+      .catch(error => {
         console.log(error);
       });
-  };
+  }
 
   portfolioItems() {
     return this.state.data.map(item => {
@@ -51,14 +51,20 @@ export default class PortfolioContainer extends Component {
     if (this.state.isLoading) {
       return <div>Loading...</div>;
     }
-    return (
-      <div>
-        <h2>{this.state.pageTitle}</h2>
 
-        <button onClick={() => this.handleFilter("PC")}>PC</button>
-        <button onClick={() => this.handleFilter("Console")}>Console</button>
-        <button onClick={() => this.handleFilter("Mobile")}>Mobile</button>
-        <div className="portfolio-items-wrapper">{this.portfolioItems()}</div>
+    return (
+      <div className="portfolio-items-wrapper">
+        <button className="btn" onClick={() => this.handleFilter("PC")}>
+          PC
+        </button>
+        <button className="btn" onClick={() => this.handleFilter("Console")}>
+          Console
+        </button>
+        <button className="btn" onClick={() => this.handleFilter("Mobile")}>
+          Mobile
+        </button>
+
+        {this.portfolioItems()}
       </div>
     );
   }

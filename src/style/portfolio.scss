@@ -1,6 +1,7 @@
 .portfolio-items-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+
   .portfolio-item-wrapper {
     position: relative;
 
@@ -33,12 +34,16 @@
     .img-text-wrapper:hover .subtitle {
       color: $teal;
       font-weight: 400;
+    }
+
+    .logo-wrapper img {
+      width: 50%;
       margin-bottom: 20px;
     }
   }
 }
 
-.img-blur {
+.image-blur {
   transition: 1s;
   filter: brightness(10%);
 }

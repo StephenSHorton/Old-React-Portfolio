@@ -2,12 +2,10 @@ import React from "react";
 
 import PortfolioContainer from "../portfolio/portfolio-container";
 
-const Home = () => {
+export default function() {
   return (
-    <div className="">
+    <div>
       <PortfolioContainer />
     </div>
   );
-};
-
-export default Home;
+}

@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Blog = () => {
+export default function() {
   return (
-    <div className="">
+    <div>
       <h2>Blog</h2>
 
       <div>
@@ -11,6 +11,4 @@ const Blog = () => {
       </div>
     </div>
   );
-};
-
-export default Blog;
+}

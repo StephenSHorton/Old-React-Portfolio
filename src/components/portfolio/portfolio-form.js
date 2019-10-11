@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export default class PortfolioForm extends Component {
   constructor(props) {
@@ -7,16 +8,19 @@ export default class PortfolioForm extends Component {
     this.state = {
       name: "",
       description: "",
-      url: "",
-      category: "",
+      category: "PC",
       position: "",
+      url: "",
       thumb_image: "",
       banner_image: "",
       logo: ""
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  buildForm = () => {
+  buildForm() {
     let formData = new FormData();
 
     formData.append("portfolio_item[name]", this.state.name);
@@ -24,18 +28,32 @@ export default class PortfolioForm extends Component {
     formData.append("portfolio_item[url]", this.state.url);
     formData.append("portfolio_item[category]", this.state.category);
     formData.append("portfolio_item[position]", this.state.position);
-  };
 
-  handleChange = event => {
+    return formData;
+  }
+
+  handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
-  };
+  }
 
-  handleSubmit = event => {
-    this.buildForm();
+  handleSubmit(event) {
+    axios
+      .post(
+        "https://stephenhorton.devcamp.space/portfolio/portfolio_items",
+        this.buildForm(),
+        { withCredentials: true }
+      )
+      .then(response => {
+        this.props.handleSuccessfulFormSubmission(response.data.portfolio_item);
+      })
+      .catch(error => {
+        console.log("portfolio form handleSubmit error", error);
+      });
+
     event.preventDefault();
-  };
+  }
 
   render() {
     return (
@@ -60,6 +78,7 @@ export default class PortfolioForm extends Component {
               onChange={this.handleChange}
             />
           </div>
+
           <div>
             <input
               type="text"
@@ -69,16 +88,19 @@ export default class PortfolioForm extends Component {
               onChange={this.handleChange}
             />
 
-            <input
-              type="text"
+            <select
               name="category"
-              placeholder="Category"
               value={this.state.category}
               onChange={this.handleChange}
-            />
+            >
+              <option value="PC">PC</option>
+              <option value="Console">Console</option>
+              <option value="Mobile">Mobile</option>
+            </select>
           </div>
+
           <div>
-            <input
+            <textarea
               type="text"
               name="description"
               placeholder="Description"
@@ -86,6 +108,7 @@ export default class PortfolioForm extends Component {
               onChange={this.handleChange}
             />
           </div>
+
           <div>
             <button type="submit">Save</button>
           </div>

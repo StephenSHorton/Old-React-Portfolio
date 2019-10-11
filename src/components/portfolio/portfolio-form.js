@@ -95,6 +95,21 @@ export default class PortfolioForm extends Component {
       )
       .then(response => {
         this.props.handleSuccessfulFormSubmission(response.data.portfolio_item);
+
+        this.setState({
+          name: "",
+          description: "",
+          category: "PC",
+          position: "",
+          url: "",
+          thumb_image: "",
+          banner_image: "",
+          logo: ""
+        });
+
+        [this.thumbRef, this.bannerRef, this.logoRef].forEach(ref => {
+          ref.current.dropzone.removeAllFiles();
+        });
       })
       .catch(error => {
         console.log("portfolio form handleSubmit error", error);

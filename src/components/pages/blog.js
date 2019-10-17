@@ -14,27 +14,24 @@ class Blog extends Component {
       currentPage: 0,
       isLoading: true
     };
-
-    this.activateInfiniteScroll();
+    window.addEventListener("scroll", this.onScroll, false);
   }
 
-  activateInfiniteScroll() {
-    window.onscroll = () => {
-      //does not call the API if state isLoading is true or if we have hit max blog count
-      if (
-        this.state.isLoading ||
-        this.state.blogItems.length === this.state.totalCount
-      ) {
-        return;
-      }
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        this.getBlogItems();
-      }
-    };
-  }
+  onScroll = () => {
+    //does not call the API if state isLoading is true or if we have hit max blog count
+    if (
+      this.state.isLoading ||
+      this.state.blogItems.length === this.state.totalCount
+    ) {
+      return;
+    }
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      this.getBlogItems();
+    }
+  };
 
   getBlogItems = () => {
     this.setState({
@@ -61,6 +58,10 @@ class Blog extends Component {
 
   componentWillMount() {
     this.getBlogItems();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.onScroll, false);
   }
 
   render() {
